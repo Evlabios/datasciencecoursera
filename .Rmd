@@ -1,0 +1,10 @@
+library(lattice)
+library(ggplot2)
+library(caret)
+
+data<-read.csv("pml-training.csv")
+inTrain<-createDataPartition(y=data$classe, p=0.7, list = FALSE)
+training<-data[inTrain,]
+testing<-data[-inTrain,]
+modFit<-train(classe~.,method="rpart",data=training)
+predict(modFit,newdata=testing)
